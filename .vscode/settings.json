@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "manager.h": "c",
+        "math.h": "c",
+        "wren.h": "c",
+        "windows.h": "c",
+        "string.h": "c",
+        "lualib.h": "c",
+        "stdio.h": "c",
+        "luaconf.h": "c",
+        "stdlib.h": "c"
+    }
+}
