@@ -170,6 +170,7 @@ static int luaSetWindowOpacity(lua_State* L) {
     return 0;
 }
 
+// Note: this might not work, because Lua doesn't have pointers
 static int luaGetWindowHandle(lua_State* L) {
     lua_pushlightuserdata(L, GetWindowHandle());
     return 1;
@@ -208,8 +209,8 @@ static int luaGetCurrentMonitor(lua_State* L) {
 static int luaGetMonitorPosition(lua_State* L) {
     int monitor = luaL_checkinteger(L, 1);
     Vector2 position = GetMonitorPosition(monitor);
-    lua_pushinteger(L, position.x);
-    lua_pushinteger(L, position.y);
+    lua_pushnumber(L, position.x);
+    lua_pushnumber(L, position.y);
     return 1;
 }
 
@@ -246,15 +247,15 @@ static int luaGetMonitorRefreshRate(lua_State* L) {
 
 static int luaGetWindowPosition(lua_State* L) {
     Vector2 windowPosition = GetWindowPosition();
-    lua_pushinteger(L, windowPosition.x);
-    lua_pushinteger(L, windowPosition.y);
+    lua_pushnumber(L, windowPosition.x);
+    lua_pushnumber(L, windowPosition.y);
     return 1;
 }
 
 static int luaGetWindowScaleDPI(lua_State* L) {
     Vector2 windowScaleDPI = GetWindowScaleDPI();
-    lua_pushinteger(L, windowScaleDPI.x);
-    lua_pushinteger(L, windowScaleDPI.y);
+    lua_pushnumber(L, windowScaleDPI.x);
+    lua_pushnumber(L, windowScaleDPI.y);
     return 1;
 }
 
@@ -416,3 +417,242 @@ static int luaOpenURL(lua_State* L) {
 // Lua already has an in-built IO library for file management, so I'm not writing bindings for Raylib's file management functions here
 
 //TODO: Data compression/encoding functions
+
+// Input functions
+
+// Keyboard input
+static int luaIsKeyPressed(lua_State* L) {
+    int key = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsKeyPressed(key));
+    return 1;
+}
+
+static int luaIsKeyDown(lua_State* L) {
+    int key = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsKeyDown(key));
+    return 1;
+}
+
+static int luaIsKeyReleased(lua_State* L) {
+    int key = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsKeyReleased(key));
+    return 1;
+}
+
+static int luaIsKeyUp(lua_State* L) {
+    int key = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsKeyUp(key));
+    return 1;
+}
+
+static int luaSetExitKey(lua_State* L) {
+    int key = luaL_checkinteger(L, 1);
+    SetExitKey(key);
+    return 0;
+}
+
+static int luaGetKeyPressed(lua_State* L) {
+    lua_pushinteger(L, GetKeyPressed());
+    return 1;
+}
+
+static int luaGetCharPressed(lua_State* L) {
+    lua_pushinteger(L, GetCharPressed());
+    return 1;
+}
+
+// Gamepad input
+
+static int luaIsGamepadAvailable(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsGamepadAvailable(gamepad));
+    return 1;
+}
+
+static int luaGetGamepadName(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    lua_pushstring(L, GetGamepadName(gamepad));
+    return 1;
+}
+
+static int luaIsGamepadButtonPressed(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    int button = luaL_checkinteger(L, 2);
+    lua_pushboolean(L, IsGamepadButtonPressed(gamepad, button));
+    return 1;
+}
+
+static int luaIsGamepadButtonDown(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    int button = luaL_checkinteger(L, 2);
+    lua_pushboolean(L, IsGamepadButtonDown(gamepad, button));
+    return 1;
+}
+
+static int luaIsGamepadButtonReleased(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    int button = luaL_checkinteger(L, 2);
+    lua_pushboolean(L, IsGamepadButtonReleased(gamepad, button));
+    return 1;
+}
+
+static int luaIsGamepadButtonUp(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    int button = luaL_checkinteger(L, 2);
+    lua_pushboolean(L, IsGamepadButtonUp(gamepad, button));
+    return 1;
+}
+
+static int luaGetGamepadButtonPressed(lua_State* L) {
+    lua_pushinteger(L, GetGamepadButtonPressed());
+    return 1;
+}
+
+static int luaGetGamepadAxisCount(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    lua_pushinteger(L, GetGamepadAxisCount(gamepad));
+    return 1;
+}
+
+static int luaGetGamepadAxisMovement(lua_State* L) {
+    int gamepad = luaL_checkinteger(L, 1);
+    int axis = luaL_checkinteger(L, 2);
+    lua_pushnumber(L, GetGamepadAxisMovement(gamepad, axis));
+    return 1;
+}
+
+static int luaSetGamepadMappings(lua_State* L) {
+    const char* mappings = luaL_checkstring(L, 1);
+    lua_pushinteger(L, SetGamepadMappings(mappings));
+    return 1;
+}
+
+// Mouse input
+
+static int luaIsMouseButtonPressed(lua_State* L) {
+    int button = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsMouseButtonPressed(button));
+    return 1;
+}
+
+static int luaIsMouseButtonDown(lua_State* L) {
+    int button = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsMouseButtonDown(button));
+    return 1;
+}
+
+static int luaIsMouseButtonReleased(lua_State* L) {
+    int button = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsMouseButtonReleased(button));
+    return 1;
+}
+
+static int luaIsMouseButtonUp(lua_State* L) {
+    int button = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsMouseButtonUp(button));
+    return 1;
+}
+
+static int luaGetMouseX(lua_State* L) {
+    lua_pushinteger(L, GetMouseX());
+    return 1;
+}
+
+static int luaGetMouseY(lua_State* L) {
+    lua_pushinteger(L, GetMouseY());
+    return 1;
+}
+
+static int luaGetMousePosition(lua_State* L) {
+    Vector2 mouseposition = GetMousePosition();
+    lua_pushnumber(L, mouseposition.x);
+    lua_pushnumber(L, mouseposition.y);
+    return 1;    
+}
+
+static int luaSetMousePosition(lua_State* L) {
+    int x = luaL_checkinteger(L, 1);
+    int y = luaL_checkinteger(L, 2);
+    SetMousePosition(x, y);
+    return 0;
+}
+
+static int luaSetMouseOffset(lua_State* L) {
+    int offsetX = luaL_checkinteger(L, 1);
+    int offsetY = luaL_checkinteger(L, 2);
+    SetMouseOffset(offsetX, offsetY);
+    return 0;
+}
+
+static int luaSetMouseScale(lua_State* L) {
+    float scaleX = luaL_checknumber(L, 1);
+    float scaleY = luaL_checknumber(L, 2);
+    SetMouseScale(scaleX, scaleY);
+    return 0;
+}
+
+static int luaGetMouseWheelMove(lua_State* L) {
+    lua_pushnumber(L, GetMouseWheelMove());
+    return 0;
+}
+
+static int luaGetMouseWheelMoveV(lua_State* L) {
+    Vector2 mouseWheelMove = GetMouseWheelMoveV();
+    lua_pushnumber(L, mouseWheelMove.x);
+    lua_pushnumber(L, mouseWheelMove.y);
+    return 1;
+}
+
+static int luaSetMouseCursor(lua_State* L) {
+    int cursor = luaL_checkinteger(L, 1);
+    SetMouseCursor(cursor);
+    return 0;
+}
+
+// TODO: Touch related functions
+
+void registerCoreBindings(lua_State* L) {
+    lua_register(L, "InitWindow", luaInitWindow);
+    lua_register(L, "WindowShouldClose", luaWindowShouldClose);
+    lua_register(L, "CloseWindow", luaCloseWindow);
+    lua_register(L, "IsWindowReady", luaIsWindowReady);
+    lua_register(L, "IsWindowFullscreen", luaIsWindowFullscreen);
+    lua_register(L, "IsWindowHidden", luaIsWindowHidden);
+    lua_register(L, "IsWindowMinimized", luaIsWindowMinimized);
+    lua_register(L, "IsWindowMaximised", luaIsWindowMaximized);
+    lua_register(L, "IsWindowFocused", luaIsWindowFocused);
+    lua_register(L, "IsWindowResized", luaIsWindowResized);
+    lua_register(L, "IsWindowState", luaIsWindowState);
+    lua_register(L, "ClearWindowState", luaClearWindowState);
+    lua_register(L, "ToggleFullscreen", luaToggleFullscreen);
+    lua_register(L, "MaximizeWindow", luaMaximizeWindow);
+    lua_register(L, "MinimizeWindow", luaMinimizeWindow);
+    lua_register(L, "RestoreWindow", luaRestoreWindow);
+    lua_register(L, "SetWindowIcon", luaSetWindowIcon);
+    lua_register(L, "SetWindowIcons", luaSetWindowIcons);
+    lua_register(L, "SetWindowTitle", luaSetWindowTitle);
+    lua_register(L, "SetWindowPosition", luaSetWindowPosition);
+    lua_register(L, "SetWindowMonitor", luaSetWindowMonitor);
+    lua_register(L, "SetWindowMinSize", luaSetWindowMinSize);
+    lua_register(L, "SetWindowSize", luaSetWindowSize);
+    lua_register(L, "SetWindowOpacity", luaSetWindowOpacity);
+    lua_register(L, "GetWindowHandle", luaGetWindowHandle);
+    lua_register(L, "GetScreenWidth", luaGetScreenWidth);
+    lua_register(L, "GetScreenHeight", luaGetScreenHeight);
+    lua_register(L, "GetRenderWidth", luaGetRenderWidth);
+    lua_register(L, "GetRenderHeight", luaGetRenderHeight);
+    lua_register(L, "GetMonitorCount", luaGetMonitorCount);
+    lua_register(L, "GetMonitorPosition", luaGetMonitorPosition);
+    lua_register(L, "GetMonitorWidth", luaGetMonitorWidth);
+    lua_register(L, "GetMonitorHeight", luaGetMonitorHeight);
+    lua_register(L, "GetMonitorPhysicalWidth", luaGetMonitorPhysicalWidth);
+    lua_register(L, "GetMonitorPhysicalHeight", luaGetMonitorPhysicalHeight);
+    lua_register(L, "GetMonitorRefreshRate", luaGetMonitorRefreshRate);
+    lua_register(L, "GetWindowPosition", luaGetWindowPosition);
+    lua_register(L, "GetWindowScaleDPI", luaGetWindowScaleDPI);
+}
+
+
+
+
+

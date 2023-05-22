@@ -9,6 +9,8 @@
 
 #include "raylib.h"
 
+#include "core.h"
+
 const char* findScriptPath(const char* scriptDir, const char* scriptName) {
     // Get the current directory
     const char* currentDir = GetWorkingDirectory();
@@ -51,6 +53,7 @@ int createLuaVM() {
     lua_State* L = luaL_newstate();
     //load lua standard library
     luaL_openlibs(L);
+    registerCoreBindings(L);
     const char* scriptsDir = findScriptPath("/scripts/", "main.lua");
     loadScript(scriptsDir, L);
     lua_close(L);
