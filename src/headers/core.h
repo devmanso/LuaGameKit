@@ -291,6 +291,7 @@ static int luaIsCursorOnScreen(lua_State* L) {
 }
 
 // Drawing functions
+//TODO: create more mode functions
 
 static int luaClearBackground(lua_State* L) {
     float hue = luaL_checknumber(L, 1);
@@ -321,3 +322,97 @@ static int luaBeginShaderMode(lua_State* L) {
     BeginShaderMode(shader);
     return 0;
 }
+
+static int luaEndShaderMode(lua_State* L) {
+    EndShaderMode();
+    return 0;
+}
+
+// shader management functions, not available in opengl 1.1
+// could probably use some optimisation, but this is fine for now
+//TODO: SetShader functions
+
+static int luaLoadShader(lua_State* L) {
+    const char* vsFilename = luaL_checkstring(L, 1);
+    const char* fsFilename = luaL_checkstring(L, 2);
+    LoadShader(vsFilename, fsFilename);
+    return 0;
+}
+
+static int luaIsShaderReady(lua_State* L) {
+    const char* vsFilename = luaL_checkstring(L, 1);
+    const char* fsFilename = luaL_checkstring(L, 2);
+    Shader shader = LoadShader(vsFilename, fsFilename);
+    lua_pushboolean(L, IsShaderReady(shader));
+    return 1;
+}
+
+static int luaGetShaderLocation(lua_State* L) {
+    const char* vsFilename = luaL_checkstring(L, 1);
+    const char* fsFilename = luaL_checkstring(L, 2);
+    Shader shader = LoadShader(vsFilename, fsFilename);
+    const char* uniformName = luaL_checkstring(L, 3);
+    lua_pushinteger(L, GetShaderLocation(shader, uniformName));
+    return 1;
+}
+
+static int luaGetShaderLocationAttrib(lua_State* L) {
+    const char* vsFilename = luaL_checkstring(L, 1);
+    const char* fsFilename = luaL_checkstring(L, 2);
+    Shader shader = LoadShader(vsFilename, fsFilename);
+    const char* attribName = luaL_checkstring(L, 3);
+    lua_pushinteger(L, GetShaderLocationAttrib(shader, attribName));
+    return 1;
+}
+
+static int luaUnloadShader(lua_State* L) {
+
+    // It's 12 am and I'm losing my mind
+    const char* vsFilename = luaL_checkstring(L, 1);
+    const char* fsFilename = luaL_checkstring(L, 2);
+    Shader shader = LoadShader(vsFilename, fsFilename);
+    UnloadShader(shader);
+    return 0;
+}
+
+
+// Timing functions
+
+static int luaSetTargetFPS(lua_State* L) {
+    unsigned int fps = luaL_checkinteger(L, 1);
+    SetTargetFPS(fps);
+    return 0;
+}
+
+static int luaGetFPS(lua_State* L) {
+    lua_pushinteger(L, GetFPS());
+    return 1;
+}
+
+static int luaDeltaTime(lua_State* L) {
+    lua_pushnumber(L, GetFrameTime());
+    return 1;
+}
+
+static int luaGetTime(lua_State* L) {
+    lua_pushnumber(L, GetTime());
+    return 1;
+}
+
+// Misc functions
+
+static int luaTakeScreenshot(lua_State* L) {
+    const char* filename = luaL_checkstring(L, 1);
+    TakeScreenshot(filename);
+    return 0;
+}
+
+static int luaOpenURL(lua_State* L) {
+    const char* url = luaL_checkstring(L, 1);
+    OpenURL(url);
+    return 0;
+}
+
+// Lua already has an in-built IO library for file management, so I'm not writing bindings for Raylib's file management functions here
+
+//TODO: Data compression/encoding functions
