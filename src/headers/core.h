@@ -650,8 +650,59 @@ void registerCoreBindings(lua_State* L) {
     lua_register(L, "GetMonitorRefreshRate", luaGetMonitorRefreshRate);
     lua_register(L, "GetWindowPosition", luaGetWindowPosition);
     lua_register(L, "GetWindowScaleDPI", luaGetWindowScaleDPI);
+    lua_register(L, "ShowCursor", luaShowCursor);
+    lua_register(L, "HideCursor", luaHideCursor);
+    lua_register(L, "IsCursorHidden", luaIsCursorHidden);
+    lua_register(L, "EnableCursor", luaEnableCursor);
+    lua_register(L, "DisableCursor", luaDisableCursor);
+    lua_register(L, "IsCursorOnScreen", luaIsCursorOnScreen);
+    lua_register(L, "ClearBackground", luaClearBackground);
+    lua_register(L, "BeginDrawing", luaBeginDrawing);
+    lua_register(L, "EndDrawing", luaEndDrawing);
+    lua_register(L, "BeginShaderMode", luaBeginShaderMode);
+    lua_register(L, "EndShaderMode", luaEndShaderMode);
+    lua_register(L, "LoadShader", luaLoadShader);
+    lua_register(L, "IsShaderReady", luaIsShaderReady);
+    lua_register(L, "GetShaderLocation", luaGetShaderLocation);
+    lua_register(L, "GetShaderLocationAttrib", luaGetShaderLocationAttrib);
+    lua_register(L, "UnloadShader", luaUnloadShader);
+    lua_register(L, "SetTargetFPS", luaSetTargetFPS);
+    lua_register(L, "GetFPS", luaGetFPS);
+    lua_register(L, "DeltaTime", luaDeltaTime);
+    lua_register(L, "GetTime", luaGetTime);
+    lua_register(L, "TakeScreenshot", luaTakeScreenshot);
+    lua_register(L, "OpenURL", luaOpenURL);
+    lua_register(L, "IsKeyPressed", luaIsKeyPressed);
+    lua_register(L, "IsKeyDown", luaIsKeyDown);
+    lua_register(L, "IsKeyReleased", luaIsKeyReleased);
+    lua_register(L, "IsKeyUp", luaIsKeyUp);
+    lua_register(L, "SetExitKey", luaSetExitKey);
+    lua_register(L, "GetKeyPressed", luaGetKeyPressed);
+    lua_register(L, "GetCharPressed", luaGetCharPressed);
+    lua_register(L, "IsGamepadAvailable", luaIsGamepadAvailable);
+    lua_register(L, "GetGamepadName", luaGetGamepadName);
+    lua_register(L, "IsGamepadButtonPressed", luaIsGamepadButtonPressed);
+    lua_register(L, "IsGamepadButtonDown", luaIsGamepadButtonDown);
+    lua_register(L, "IsGamepadButtonReleased", luaIsGamepadButtonReleased);
+    lua_register(L, "IsGamepadButtonUp", luaIsGamepadButtonUp);
+    lua_register(L, "GetGamepadButtonPressed", luaGetGamepadButtonPressed);
+    lua_register(L, "GetGamepadAxisCount", luaGetGamepadAxisCount);
+    lua_register(L, "GetGamepadAxisMovement", luaGetGamepadAxisMovement);
+    lua_register(L, "SetGamepadMappings", luaSetGamepadMappings);
+    lua_register(L, "IsMouseButtonPressed", luaIsMouseButtonPressed);
+    lua_register(L, "IsMouseButtonDown", luaIsMouseButtonDown);
+    lua_register(L, "IsMouseButtonReleased", luaIsMouseButtonReleased);
+    lua_register(L, "IsMouseButtonUp", luaIsMouseButtonUp);
+    lua_register(L, "GetMouseX", luaGetMouseX);
+    lua_register(L, "GetMouseY", luaGetMouseY);
+    lua_register(L, "GetMousePosition", luaGetMousePosition);
+    lua_register(L, "SetMousePosition", luaSetMousePosition);
+    lua_register(L, "SetMouseOffset", luaSetMouseOffset);
+    lua_register(L, "SetMouseScale", luaSetMouseScale);
+    lua_register(L, "GetMouseWhellMove", luaGetMouseWheelMove);
+    lua_register(L, "GetMouseWheelMoveV", luaGetMouseWheelMoveV);
+    lua_register(L, "SetMouseCursor", luaSetMouseCursor);
 }
-
 
 
 
