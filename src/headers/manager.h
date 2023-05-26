@@ -10,6 +10,7 @@
 #include "raylib.h"
 
 #include "core.h"
+#include "drawing.h"
 
 const char* findScriptPath(const char* scriptDir, const char* scriptName) {
     // Get the current directory
