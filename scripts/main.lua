@@ -1,4 +1,4 @@
-InitWindow(450, 850, "My Window")
+InitWindow(850, 450, "My Window")
 SetTargetFPS(60)
 
 while not WindowShouldClose() do 

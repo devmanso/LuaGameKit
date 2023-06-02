@@ -80,3 +80,76 @@ static int luaDrawLineV(lua_State* L) {
     return 0;
 }
 
+static int luaDrawLineEx(lua_State* L) {
+    float startposx = luaL_checknumber(L, 1);
+    float startposy = luaL_checknumber(L, 2);
+    float endposx = luaL_checknumber(L, 3);
+    float endposy = luaL_checknumber(L, 4);
+    Vector2 startvector;
+    startvector.x = startposx;
+    startvector.y = startposy;
+    Vector2 endvector;
+    endvector.x = endposx;
+    endvector.y = endposy;
+    float thickness = luaL_checknumber(L, 5);
+    float hue = luaL_checknumber(L, 6);
+    float saturation = luaL_checknumber(L, 7);
+    float value = luaL_checknumber(L, 8);
+    Color color = ColorFromHSV(
+    hue, 
+    saturation, 
+    value);
+    DrawLineEx(startvector, endvector, thickness, color);
+    return 0;
+}
+
+static int luaDrawLineBezier(lua_State* L) {
+    float startposx = luaL_checknumber(L, 1);
+    float startposy = luaL_checknumber(L, 2);
+    float endposx = luaL_checknumber(L, 3);
+    float endposy = luaL_checknumber(L, 4);
+    Vector2 startvector;
+    startvector.x = startposx;
+    startvector.y = startposy;
+    Vector2 endvector;
+    endvector.x = endposx;
+    endvector.y = endposy;
+    float thickness = luaL_checknumber(L, 5);
+    float hue = luaL_checknumber(L, 6);
+    float saturation = luaL_checknumber(L, 7);
+    float value = luaL_checknumber(L, 8);
+    Color color = ColorFromHSV(
+    hue, 
+    saturation, 
+    value);
+    DrawLineBezier(startvector, endvector, thickness, color);
+    return 0;
+}
+
+static int luaDrawLineBezierQuad(lua_State* L) {
+    float startposx = luaL_checknumber(L, 1);
+    float startposy = luaL_checknumber(L, 2);
+    float endposx = luaL_checknumber(L, 3);
+    float endposy = luaL_checknumber(L, 4);
+    float controlx = luaL_checknumber(L, 5);
+    float controly = luaL_checknumber(L, 6);
+    Vector2 startvector;
+    startvector.x = startposx;
+    startvector.y = startposy;
+    Vector2 endvector;
+    endvector.x = endposx;
+    endvector.y = endposy;
+    Vector2 controlvector;
+    controlvector.x = controlx;
+    controlvector.y = controly;
+    float thickness = luaL_checknumber(L, 7);
+    float hue = luaL_checknumber(L, 8);
+    float saturation = luaL_checknumber(L, 9);
+    float value = luaL_checknumber(L, 10);
+    Color color = ColorFromHSV(
+    hue, 
+    saturation, 
+    value);
+    DrawLineBezierQuad(startvector, endvector, controlvector, thickness, color);
+    return 0;
+}

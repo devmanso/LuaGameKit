@@ -16,6 +16,5 @@
 
 int main() {
     createLuaVM();
-    getchar();
     return 0;
 }
