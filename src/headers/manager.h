@@ -55,6 +55,7 @@ int createLuaVM() {
     //load lua standard library
     luaL_openlibs(L);
     registerCoreBindings(L);
+    registerDrawingBindings(L);
     const char* scriptsDir = findScriptPath("/scripts/", "main.lua");
     loadScript(scriptsDir, L);
     lua_close(L);
