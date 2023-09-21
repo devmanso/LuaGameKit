@@ -11,6 +11,7 @@
 
 #include "core.h"
 #include "drawing.h"
+#include "text.h"
 
 const char* findScriptPath(const char* scriptDir, const char* scriptName) {
     // Get the current directory
@@ -56,6 +57,7 @@ int createLuaVM() {
     luaL_openlibs(L);
     registerCoreBindings(L);
     registerDrawingBindings(L);
+    registerTextBindings(L);
     const char* scriptsDir = findScriptPath("/scripts/", "main.lua");
     loadScript(scriptsDir, L);
     lua_close(L);

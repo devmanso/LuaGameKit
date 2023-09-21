@@ -8,6 +8,7 @@
 #include "lualib.h"
 
 #include "raylib.h"
+#include "converter.h"
 
 // Window functions
 
@@ -170,7 +171,7 @@ static int luaSetWindowOpacity(lua_State* L) {
     return 0;
 }
 
-// Note: this might not work, because Lua doesn't have pointers
+// Note: this might not work, because this function returns void
 static int luaGetWindowHandle(lua_State* L) {
     lua_pushlightuserdata(L, GetWindowHandle());
     return 1;
@@ -211,7 +212,7 @@ static int luaGetMonitorPosition(lua_State* L) {
     Vector2 position = GetMonitorPosition(monitor);
     lua_pushnumber(L, position.x);
     lua_pushnumber(L, position.y);
-    return 1;
+    return 2;
 }
 
 static int luaGetMonitorWidth(lua_State* L) {
@@ -249,14 +250,14 @@ static int luaGetWindowPosition(lua_State* L) {
     Vector2 windowPosition = GetWindowPosition();
     lua_pushnumber(L, windowPosition.x);
     lua_pushnumber(L, windowPosition.y);
-    return 1;
+    return 2;
 }
 
 static int luaGetWindowScaleDPI(lua_State* L) {
     Vector2 windowScaleDPI = GetWindowScaleDPI();
     lua_pushnumber(L, windowScaleDPI.x);
     lua_pushnumber(L, windowScaleDPI.y);
-    return 1;
+    return 2;
 }
 
 // Cursor functions
@@ -295,13 +296,7 @@ static int luaIsCursorOnScreen(lua_State* L) {
 //TODO: create more mode functions
 
 static int luaClearBackground(lua_State* L) {
-    float hue = luaL_checknumber(L, 1);
-    float saturation = luaL_checknumber(L, 2);
-    float value = luaL_checknumber(L, 3);
-    Color color = ColorFromHSV(
-    hue, 
-    saturation, 
-    value);
+    Color color = luaTableToHSVColor(L, 1);
     ClearBackground(color);
     return 0;
 }

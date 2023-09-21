@@ -1,11 +1,16 @@
-InitWindow(850, 450, "My Window")
-SetTargetFPS(60)
-
+InitWindow(850, 800, "LuaGameKit -- Demo")
+SetTargetFPS(9999)
+circlesDrawn = 0
 while not WindowShouldClose() do 
     BeginDrawing()
-    DrawLineV({x=500, y=300},{x=400, y=250}, 100, .5, .7)
-    ClearBackground(292, 0.31, 0.86)
-
+    
+    DrawCircle(math.random(1, 850), math.random(1, 800), 10, 
+    {h = math.random(1, 360),s = math.random(1, 100),v = math.random(1, 100)})
+    circlesDrawn = circlesDrawn + 1
+    circleText = "circles drawn: " ..tostring(circlesDrawn)
+    DrawText(circleText, 10, 10, 40, {h=311, s=57, v=51})
+    DrawFPS(750, 10)
+    --ClearBackground({h=0,s=0,v=0})
     EndDrawing()
 end
 
