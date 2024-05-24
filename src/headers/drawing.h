@@ -345,6 +345,68 @@ static int luaCheckCollisionPointTriangle(lua_State *L) {
     return 1;
 }
 
+static int luaCheckCollisionPointPoly(lua_State *L) {
+    Vector2 point = luaTableToVector2(L, 1);
+    int pointCount = luaL_len(L, 2);
+    Vector2 *points = malloc(sizeof(Vector2) * pointCount);
+    for (int i = 0; i < pointCount; i++) {
+        lua_rawgeti(L, 2, i + 1);
+        points[i] = luaTableToVector2(L, -1);
+        lua_pop(L, 1);
+    }
+    bool isColliding = CheckCollisionPointPoly(point, points, pointCount);
+    free(points);
+    lua_pushboolean(L, isColliding);
+    return 1;
+}
+
+static int luaCheckCollisionLines(lua_State *L) {
+    Vector2 startPos1 = luaTableToVector2(L, 1);
+    Vector2 endPos1 = luaTableToVector2(L, 2);
+    Vector2 startPos2 = luaTableToVector2(L, 3);
+    Vector2 endPos2 = luaTableToVector2(L, 4);
+    Vector2 collisionPoint;
+    bool isColliding = CheckCollisionLines(startPos1, endPos1, startPos2, endPos2, &collisionPoint);
+    if (isColliding) {
+        // Push collisionPoint as a Lua table
+        lua_newtable(L);
+        lua_pushnumber(L, collisionPoint.x);
+        lua_setfield(L, -2, "x");
+        lua_pushnumber(L, collisionPoint.y);
+        lua_setfield(L, -2, "y");
+    } else {
+        // Push nil if there's no collision
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
+static int luaCheckCollisionPointLine(lua_State *L) {
+    Vector2 point = luaTableToVector2(L, 1);
+    Vector2 p1 = luaTableToVector2(L, 2);
+    Vector2 p2 = luaTableToVector2(L, 3);
+    int threshold = lua_tointeger(L, 4);
+    bool isColliding = CheckCollisionPointLine(point, p1, p2, threshold);
+    lua_pushboolean(L, isColliding);
+    return 1;
+}
+
+static int luaGetCollisionRec(lua_State *L) {
+    Rectangle rec1 = luaTableToRectangle(L, 1);
+    Rectangle rec2 = luaTableToRectangle(L, 2);
+    Rectangle result = GetCollisionRec(rec1, rec2);
+    lua_newtable(L);
+    lua_pushnumber(L, result.x);
+    lua_setfield(L, -2, "x");
+    lua_pushnumber(L, result.y);
+    lua_setfield(L, -2, "y");
+    lua_pushnumber(L, result.width);
+    lua_setfield(L, -2, "width");
+    lua_pushnumber(L, result.height);
+    lua_setfield(L, -2, "height");
+    return 1;
+}
+
 void registerDrawingBindings(lua_State *L) {
     lua_register(L, "DrawPixel", luaDrawPixel);
     lua_register(L, "DrawPixelV", luaDrawPixelV);
@@ -376,4 +438,8 @@ void registerDrawingBindings(lua_State *L) {
     lua_register(L, "CheckCollisionPointRec", luaCheckCollisionPointRec);
     lua_register(L, "CheckCollisionPointCircle", luaCheckCollisionPointCircle);
     lua_register(L, "CheckCollisionPointTriangle", luaCheckCollisionPointTriangle);
+    lua_register(L, "CheckCollisionPointPoly", luaCheckCollisionPointPoly);
+    lua_register(L, "CheckCollisionLines", luaCheckCollisionLines);
+    lua_register(L, "CheckCollisionPointLine", luaCheckCollisionPointLine);
+    lua_register(L, "GetCollisionRec", luaGetCollisionRec);
 }

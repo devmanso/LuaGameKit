@@ -6,11 +6,10 @@
 
 ## How to build this project using MinGW (Windows only)
 
-- open w64devkit.exe (inside "w64devkit" folder)
 - run this command below
 
 ```
-gcc -o game src/main.c -Iinclude -Llib -llua54 -lraylib -lopengl32 -lgdi32 -lwinmm
+gcc -o game src/main.c src/miniz.c -Iinclude -Llib -llua54 -lraylib -lopengl32 -lgdi32 -lwinmm
 ```
 
 - run game.exe
@@ -34,4 +33,5 @@ gcc -o game src/main.c -Iinclude -Llib -llua -lraylib -lGL -lm -lpthread -ldl -l
 - If you somehow figured out how to compile this on Linux/MacOS a different way please make an issue.
 
 ## Liscensed under the MIT Liscense
+
 - see LISCENSE

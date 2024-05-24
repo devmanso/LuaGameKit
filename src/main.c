@@ -16,6 +16,8 @@
 
 int main() {
     createLuaVM();
+
+    // use getchar() to open console (for debugging purposes)
     getchar();
     return 0;
 }
