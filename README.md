@@ -1,18 +1,23 @@
 # LuaGameKit
 
-- A lua game frameWork that uses Raylib as it's backend
+- A lua game frameWork that uses Raylib 4.5 as it's backend
 - WIP
-
 
 ## How to build this project using MinGW (Windows only)
 
-- run this command below
+- run the makefile
+
+```
+make
+```
+
+- Or run this command below
 
 ```
 gcc -o game src/main.c src/miniz.c -Iinclude -Llib -llua54 -lraylib -lopengl32 -lgdi32 -lwinmm
 ```
 
-- run game.exe
+- finally: run game.exe
 
 ## Can this be compiled on other platforms (MacOS/Linux)
 

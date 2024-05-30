@@ -52,20 +52,6 @@ int loadScript(const char filepath[], lua_State *L) {
 }
 
 
-// int createLuaVM() {
-//     lua_State* L = luaL_newstate();
-//     //load lua standard library
-//     luaL_openlibs(L);
-//     registerCoreBindings(L);
-//     registerDrawingBindings(L);
-//     registerTextBindings(L);
-//     const char* scriptsDir = findScriptPath("/app/scripts/", "main.lua");
-//     loadScript(scriptsDir, L);
-//     lua_close(L);
-//     return 0;
-// }
-
-
 int loadScriptFromMemory(const char* script, size_t script_size, lua_State* L) {
     if (luaL_loadbuffer(L, script, script_size, "main.lua") || lua_pcall(L, 0, 0, 0)) {
         printf("Error: %s\n", lua_tostring(L, -1));

@@ -9,39 +9,6 @@
 
 #include "raylib.h"
 #include "converter.h"
-//#include "luafont.h"
-
-// TODO: Implement Font functions
-// this is difficult as a Font consists of:
-// Texture2D, Rectangle, and GlyphInfo
-
-// static int luaGetFontDefault(lua_State *L) {
-//     Font font = GetFontDefault();
-//     LuaFont *lf = (LuaFont *)lua_newuserdata(L, sizeof(LuaFont));
-//     luaL_getmetatable(L, "FontMeta");
-//     lua_setmetatable(L, -2);
-
-//     // Initialize the Font struct
-//     lf->font.baseSize = font.baseSize;
-//     lf->font.glyphCount = font.glyphCount;
-//     lf->font.glyphPadding = font.glyphPadding;
-//     lf->font.texture = font.texture;
-//     lf->font.recs = font.recs;
-//     lf->font.glyphs = font.glyphs;
-
-//     lua_pushinteger(L, lf->font.baseSize);
-//     lua_pushinteger(L, lf->font.glyphCount);
-//     lua_pushinteger(L, lf->font.glyphPadding);
-//     lua_pushinteger(L, lf->font.texture.id);
-//     lua_pushinteger(L, lf->font.texture.width);
-//     lua_pushinteger(L, lf->font.texture.height);
-//     lua_pushinteger(L, lf->font.texture.mipmaps);
-//     lua_pushinteger(L, lf->font.texture.format);
-//     lua_pushinteger(L, lf->font.recs);
-//     lua_pushinteger(L, lf->font.glyphs);
-
-//     return 1;
-// }
 
 static int luaGetFontDefault(lua_State *L) {
     Font font = GetFontDefault();

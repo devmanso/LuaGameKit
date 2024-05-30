@@ -6,7 +6,7 @@ circlesDrawn = 0
 circleBatch = {}
 flickering = false
 hideText = true
-SetWindowIcon("app/scripts/random_icon.png")
+SetWindowIcon("app/scripts/icon.png")
 while not WindowShouldClose() do
     local font = GetFontDefault()
     -- print("Base size: ", font.baseSize)
