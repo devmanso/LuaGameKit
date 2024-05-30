@@ -1,4 +1,4 @@
-local input = require("app/scripts/input")
+local input = require("app/scripts/input") -- lua file
 
 InitWindow(850, 800, "CirclePlayground")
 SetTargetFPS(9999)
@@ -6,7 +6,18 @@ circlesDrawn = 0
 circleBatch = {}
 flickering = false
 hideText = true
-while not WindowShouldClose() do 
+SetWindowIcon("app/scripts/random_icon.png")
+while not WindowShouldClose() do
+    local font = GetFontDefault()
+    -- print("Base size: ", font.baseSize)
+    -- print("Glyph count: ", font.glyphCount)
+    -- print("Texture ID: ", font.texture.id)
+    -- print("Texture width: ", font.texture.width)
+    -- print("Texture height: ", font.texture.height)
+    -- print("Texture mipmaps: ", font.texture.mipmaps)
+    -- print("Texture format: ", font.texture.format)
+    -- print("Recs stuff ", font.recs.x, font.recs.y, font.recs.width, font.recs.height)
+
     BeginDrawing()
     if IsMouseButtonPressed(input.mouse.right) then
         flickering = true

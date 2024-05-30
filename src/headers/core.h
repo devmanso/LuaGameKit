@@ -604,7 +604,96 @@ static int luaSetMouseCursor(lua_State* L) {
     return 0;
 }
 
-// TODO: Touch related functions
+static int luaGetTouchX(lua_State* L) {
+    lua_pushinteger(L, GetTouchX());
+    return 1;
+}
+
+static int luaGetTouchY(lua_State* L) {
+    lua_pushinteger(L, GetTouchY());
+    return 1;
+}
+
+static int luaGetTouchPosition(lua_State* L) {
+    int index = luaL_checkinteger(L, 1);
+    Vector2 touchPosition = GetTouchPosition(index);
+    lua_pushnumber(L, touchPosition.x);
+    lua_pushnumber(L, touchPosition.y);
+    return 1;
+}
+
+static int luaGetTouchPointId(lua_State* L) {
+    int index = luaL_checkinteger(L, 1);
+    lua_pushinteger(L, GetTouchPointId(index));
+    return 1;
+}
+
+static int luaGetTouchPointCount(lua_State* L) {
+    lua_pushinteger(L, GetTouchPointCount());
+    return 1;
+}
+
+static int luaSetGesturesEnabled(lua_State* L) {
+    unsigned int gestureFlags = luaL_checkinteger(L, 1);
+    SetGesturesEnabled(gestureFlags);
+    return 0;
+}
+
+static int luaIsGestureDetected(lua_State* L) {
+    int gesture = luaL_checkinteger(L, 1);
+    lua_pushboolean(L, IsGestureDetected(gesture));
+    return 1;
+}
+
+static int luaGetGestureDetected(lua_State* L) {
+    lua_pushinteger(L, GetGestureDetected());
+    return 1;
+}
+
+static int luaGetGestureHoldDuration(lua_State* L) {
+    lua_pushnumber(L, GetGestureHoldDuration());
+    return 1;
+}
+
+static int luaGetGestureDragVector(lua_State* L) {
+    Vector2 dragVector = GetGestureDragVector();
+    lua_pushnumber(L, dragVector.x);
+    lua_pushnumber(L, dragVector.y);
+    return 1;
+}
+
+static int luaGetGestureDragAngle(lua_State* L) {
+    lua_pushnumber(L, GetGestureDragAngle());
+    return 1;
+}
+
+static int luaGetGesturePinchVector(lua_State* L) {
+    Vector2 pinchVector = GetGesturePinchVector();
+    lua_pushnumber(L, pinchVector.x);
+    lua_pushnumber(L, pinchVector.y);
+    return 1;
+}
+
+static int luaGetGesturePinchAngle(lua_State* L) {
+    lua_pushnumber(L, GetGesturePinchAngle());
+    return 1;
+}
+
+static int luaUpdateCamera(lua_State* L) {
+    Camera *camera = luaTableToCamera(L, 1);
+    int mode = luaL_checkinteger(L, 2);
+    UpdateCamera(camera, mode);
+    return 0;
+}
+
+static int luaUpdateCameraPro(lua_State* L) {
+    Camera *camera = luaTableToCamera(L, 1);
+    Vector3 target = luaTableToVector3(L, 2);
+    Vector3 rotation = luaTableToVector3(L, 3);
+    float zoom = luaL_checknumber(L, 4);
+    UpdateCameraPro(camera, target, rotation, zoom);
+    return 0;
+}
 
 void registerCoreBindings(lua_State* L) {
     lua_register(L, "InitWindow", luaInitWindow);
@@ -697,6 +786,21 @@ void registerCoreBindings(lua_State* L) {
     lua_register(L, "GetMouseWhellMove", luaGetMouseWheelMove);
     lua_register(L, "GetMouseWheelMoveV", luaGetMouseWheelMoveV);
     lua_register(L, "SetMouseCursor", luaSetMouseCursor);
+    lua_register(L, "GetTouchX", luaGetTouchX);
+    lua_register(L, "GetTouchY", luaGetTouchY);
+    lua_register(L, "GetTouchPosition", luaGetTouchPosition);
+    lua_register(L, "GetTouchId", luaGetTouchPointId);
+    lua_register(L, "GetTouchPointCount", luaGetTouchPointCount);
+    lua_register(L, "SetGesturesEnabled", luaSetGesturesEnabled);
+    lua_register(L, "IsGestureDetected", luaIsGestureDetected);
+    lua_register(L, "GetGestureDetected", luaGetGestureDetected);
+    lua_register(L, "GetGestureHoldDuration", luaGetGestureHoldDuration);
+    lua_register(L, "GetGestureDragVector", luaGetGestureDragVector);
+    lua_register(L, "GetGestureDragAngle", luaGetGestureDragAngle);
+    lua_register(L, "GetGesturePinchVector", luaGetGesturePinchVector);
+    lua_register(L, "GetGesturePinchAngle", luaGetGesturePinchAngle);
+    lua_register(L, "UpdateCamera", luaUpdateCamera);
+    lua_register(L, "UpdateCameraPro", luaUpdateCameraPro);
 }
 
 

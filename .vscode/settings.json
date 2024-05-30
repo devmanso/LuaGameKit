@@ -8,6 +8,8 @@
         "lualib.h": "c",
         "stdio.h": "c",
         "luaconf.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "raylib.h": "c",
+        "lauxlib.h": "c"
     }
 }
